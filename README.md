@@ -4,14 +4,15 @@
 ```
 import(  
     "fmt"
-    server "github.com/gkyh/quic"
+    "github.com/gkyh/quic"
   )
 
 const addr = "localhost:8000"    
 
 func main() {
 
-    srv := server.New(handler)
+    srv := udp.New(handler)
+    srv.SetKey(udp.StaticKey)//default key
     srv.Run(addr)
 
 }    
@@ -32,7 +33,7 @@ import(
 
 func main() {
     
-    conn, err := udp.ClientConn(host, ProtoKey)
+    conn, err := udp.ClientConn(host, udp.StaticKey)
     if err != nil {
         fmt.Println("connt error:", err)
         panic(err)
